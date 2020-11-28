@@ -1,0 +1,22 @@
+version: '3.5'
+services:
+  pddb_test:
+    container_name: pgdb_test
+    image: postgres:10.6
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+
+  sqlpad:
+    container_name: sqlpad
+    image: "sqlpad/sqlpad:6"
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      - SQLPAD_ADMIN=admin@sqlpad.com
+      - SQLPAD_ADMIN_PASSWORD=83Wrw50
+    volumes:
+      - /mnt/sqlpad:/var/lib/sqlpad

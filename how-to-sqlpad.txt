@@ -1,0 +1,92 @@
+# Up docker-compose
+docker-compose up -d
+
+# Check containers
+> $ docker ps 
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+de3d6f5b8a24        postgres:10.6       "docker-entrypoint.s…"   25 minutes ago      Up 25 minutes       0.0.0.0:5432->5432/tcp   pgdb_test
+e423ee635435        sqlpad/sqlpad:6     "/docker-entrypoint"     25 minutes ago      Up 25 minutes       0.0.0.0:3000->3000/tcp   sqlpad
+
+# Copy Database dump test to pgdb_test container
+docker cp northwind_ddl.sql pgdb_test:/tmp/
+docker cp northwind_data.sql pgdb_test:/tmp/
+
+# Create database
+docker exec -it pgdb_test bash
+
+postgres@de3d6f5b8a24:/$ createdb northwind
+
+postgres@de3d6f5b8a24:/$ cat /tmp/northwind_ddl.sql |psql northwind
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+
+postgres@de3d6f5b8a24:/$ cat /tmp/northwind_data.sql | psql northwind
+SET                                                                                                      
+SET                                                                                                      
+SET                                                                                                      
+SET                                                                                                      
+SET                                                                                                      
+SET                                                                                                      
+SET                                                                                                      
+SET                                                                                                      
+SET                                                                                                      
+INSERT 0 1
+INSERT 0 1
+
+postgres@de3d6f5b8a24:/$ psql northwind
+psql (10.6 (Debian 10.6-1.pgdg90+1))
+Type "help" for help.
+
+northwind=# \dt
+                 List of relations
+ Schema |          Name          | Type  |  Owner   
+--------+------------------------+-------+----------
+ public | categories             | table | postgres
+ public | customer_customer_demo | table | postgres
+ public | customer_demographics  | table | postgres
+ public | customers              | table | postgres
+ public | employee_territories   | table | postgres
+ public | employees              | table | postgres
+ public | order_details          | table | postgres
+ public | orders                 | table | postgres
+ public | products               | table | postgres
+ public | region                 | table | postgres
+ public | shippers               | table | postgres
+ public | suppliers              | table | postgres
+ public | territories            | table | postgres
+ public | us_states              | table | postgres
+(14 rows)
